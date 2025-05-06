@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+  <title>Spend Money</title>
+  <style>
+    body { font-family: Arial; text-align: center; background: white; color: black; }
+    .money { font-size: 24px; margin: 20px; color: red; }
+    .item { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 200px; background: #f9f9f9; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .item img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; }
+    .item button { margin-top: 8px; padding: 6px 12px; background: red; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    .gates-pic { width: 160px; border-radius: 8px; margin-top: 10px; }
+    #summaryBtn { padding: 10px 20px; margin: 20px auto; background: black; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Spend Bill Gates' Money</h1>
+  <img class="gates-pic" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Bill_Gates_2018.jpg" alt="Bill Gates">
+  <div class="money" id="money"></div>
+  <button id="summaryBtn" onclick="summary()">Check Summary</button>
+  <div id="items"></div>
+  <script>
+    let money = 100000000000;
+    let bought = {};
+
+    function updateMoney() {
+      document.getElementById("money").innerText = "$" + money.toLocaleString();
+    }
+
+    function buy(name, price) {
+      if (money < price) {
+        alert("Not enough money");
+        return;
+      }
+      money = money - price;
+      if (!bought[name]) bought[name] = 0;
+      bought[name]++;
+      updateMoney();}
+     
+      function showSummary() {
+  let msg = "$" + money.toLocaleString() + " left.\n";
+  let hasItems = false;
+  for (let item in bought) {
+    msg += item + ": " + bought[item] + "\n";
+    hasItems = true;
+  }
+  if (!hasItems) {
+    msg += "You didn't buy anything.";
+  }
+  alert(msg);
+}
+
+let stuff = [
+  { name: "Big Mac", price: 5, img: "https://neal.fun/spend/images/big-mac.jpg" },
+  { name: "Lamborghini Aventador", price: 500000, img: "assets/aven_gate_s_02_m.jpg.webp.jpeg" },
+  { name: "Ferrari 488", price: 250000, img: "assets/960px-2017_Ferrari_488_GTB_Automatic_3.9.jpg" },
+  { name: "Rolex Watch", price: 10000, img: "assets/Rolex-Daytona-in-Platinum-With-Turquoise-Dial-Ref-16516-Sothebys.png" },
+  { name: "Gucci Handbag", price: 2000, img: "assets/735145_KAAAD_8358_001_071_0000_Light.avif" },
+  { name: "LV Bag", price: 3000, img: "assets/s-l400.jpg" },
+  { name: "Beach Villa", price: 1200000, img: "assets/turks-and-caicos-villa-positano-2015-header_medium.jpg" },
+  { name: "Hawaii Luxury Trip", price: 30000, img: "assets/pool-view.jpg" },
+  { name: "Steinway Piano", price: 150000, img: "assets/Steinway_&_Sons_concert_grand_piano,_model_D-274,_manufactured_at_Steinway's_factory_in_Hamburg,_Germany.png" },
+  { name: "Private Jet", price: 40000000, img: "assets/Essex-Aviation-International-Private-Jet-Gulfstream-G280.jpg" },
+  { name: "Yacht", price: 200000000, img: "assets/images.jpg" },
+  { name: "Private Island", price: 80000000, img: "assets/200513125825-07-gladden-private-island.jpg" },
+  { name: "World Tour", price: 5000000, img: "assets/61ai7oW8wOL._AC_UF1000,1000_QL80_.jpg" },
+  { name: "Recording Studio", price: 1000000, img: "assets/Control-Room-2-scaled.jpg" },
+  { name: "Stradivarius Violin", price: 2000000, img: "assets/PalacioReal_Stradivarius1.jpg" },
+  { name: "Concert Hall", price: 10000000, img: "assets/blog_41709314567.jpg" },
+  { name: "Music Rights", price: 100000000, img: "assets/copyright.jpg" },
+  { name: "NFT Art", price: 1000000, img: "assets/merlin_184196631_939fb22d-b909-4205-99d9-b464fb961d32-superJumbo.avif" },
+  { name: "Luxury Headphones", price: 3000, img: "assets/LCD-2-Product-Images-3Q_Paduak.webp" },
+  { name: "Festival Pass (VIP)", price: 2000, img: "assets/images-1.jpg" },
+  { name: "High-End Sound System", price: 50000, img: "assets/Nola-Audio-Grand-Regerence3-1.webp" },
+  { name: "Custom Guitar", price: 10000, img: "assets/Voodoo-Home-Background-1-NEW-RESIZED-MetalGATE.jpg" }
+];
+// Create items dynamically·
+
+    let area = document.getElementById("items");
+
+for (let i = 0; i < stuff.length; i++) {
+  let item = stuff[i];
+
+  let box = document.createElement("div");
+  box.className = "item";
+
+  box.innerHTML = `
+    <img src="${item.img}">
+    <h3>${item.name}</h3>
+    <p>$${item.price}</p>
+    <button onclick="buy('${item.name}', ${item.price})">Buy</button>
+  `;
+
+  area.appendChild(box);
+}
+
+
+    updateMoney();
+  </script>
+</body>
+</html>
+<!-- This HTML file allows users to spend money on various items, displaying the remaining balance and a summary of purchases. -->
+<!-- The items include luxury goods, experiences, and collectibles, each with an image and price. -->
+<!-- The script handles the buying process, updating the balance and tracking purchased items. -->  
